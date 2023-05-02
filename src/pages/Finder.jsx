@@ -2,22 +2,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from './Card';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import BookCard from 'react-tinder-card';
 
 // Import Swiper styles
 import 'swiper/css';
+import { useSelector } from 'react-redux';
 
 
 function Finder() {
+    const books = useSelector((state) => state.books)
     return (
-        <div className='flex flex--col justify-center '>
-            <Swiper
-                  slidesPerView={1}
-                  onSlideChange={() => console.log('slide change')}
-                  onSwiper={(swiper) => console.log(swiper)}>
-                <SwiperSlide> <Card /> </SwiperSlide>
-                <SwiperSlide> <Card /> </SwiperSlide>
-                <SwiperSlide> <Card /> </SwiperSlide>
-            </Swiper>
+        <div className='flex justify-center '>
+            
+           
+            {books.map(book => 
+                <BookCard 
+                    className='swipe'
+                    key={book.title}
+                    preventSwipe={["up", "down"]}
+                >
+                    <Card title={book.title} img={book.img}/>
+                </BookCard>
+            
+                )}
+
 
             
         </div>
